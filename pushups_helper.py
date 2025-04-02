@@ -1,4 +1,5 @@
 import numpy as np
+import streamlit as st
 import cv2
 import mediapipe as mp
 import simpleaudio as sa
@@ -21,6 +22,45 @@ api_key = os.environ.get("GROQ_API_KEY")
 mp_pose = mp.solutions.pose
 mp_drawing = mp.solutions.drawing_utils
 pose = mp_pose.Pose(model_complexity=1)
+
+EXERCISE_GIFS = {
+    "Pushups": r"C:\Users\tejat\Desktop\FitnessApp\triangle-pushup.gif",
+    #"Squats": "gifs/squats.gif",
+    #"Deadlift": "gifs/deadlift.gif",
+    #"Skipping": "gifs/skipping.gif",
+    #"Plank": "gifs/plank.gif",
+    #"Lunges": "gifs/lunges.gif",
+    #"High Knees": "gifs/high_knees.gif"
+}
+def display_exercise_gif(exercise_name):
+    gif_path = EXERCISE_GIFS.get(exercise_name)
+    
+    # Create columns for layout
+    col1, col2 = st.columns([4, 1])  # Title takes more space than GIF
+    
+    with col1:
+        st.title("🏋️ Fitness AI Trainer")
+        st.markdown("**Real-time exercise analysis** with pose detection and AI-powered feedback.")
+    
+    with col2:
+        if gif_path:
+            if gif_path.startswith(('http://', 'https://')):
+                # For web-hosted GIFs
+                st.markdown(
+                    f'<div style="width: 120px; height: 120px; margin-top: 10px;">'
+                    f'<img src="{gif_path}" style="width: 100%; height: 100%;">'
+                    f'</div>',
+                    unsafe_allow_html=True
+                )
+            elif os.path.exists(gif_path):
+                # For local GIF files - read as bytes and display
+                with open(gif_path, "rb") as f:
+                    gif_bytes = f.read()
+                st.image(gif_bytes, width=120, caption="")
+            else:
+                st.warning("GIF not found")
+        else:
+            st.warning("No GIF path specified")
 def calculate_angle(a, b, c):
     """Calculate the angle between three points."""
     a, b, c = np.array(a), np.array(b), np.array(c)

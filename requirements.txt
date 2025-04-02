@@ -6,3 +6,4 @@ sentence-transformers
 langchain
 dotenv
 langchain_groq
+streamlit
