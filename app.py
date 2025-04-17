@@ -13,7 +13,7 @@ from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate
 from sentence_transformers import SentenceTransformer, util
 import mediapipe as mp
-from pushups_helper import calculate_angle,PushupAnalyzer,PiperTTS,play_audio_async,draw_pose,display_info,check_relevancy,bot,run_chatbot,display_exercise_gif
+from Pushups.pushups_helper import calculate_angle,PushupAnalyzer,PiperTTS,play_audio_async,draw_pose,display_info,check_relevancy,bot,run_chatbot,display_exercise_gif
 import time
 import warnings
 warnings.filterwarnings("ignore", category=DeprecationWarning)
